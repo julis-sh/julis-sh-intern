@@ -1,0 +1,66 @@
+# Node.js
+node_modules/
+.env
+.env.*
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build
+/dist/
+/build/
+/uploads/
+coverage/
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Frontend (Vite, React)
+frontend/dist/
+frontend/node_modules/
+frontend/.env*
+frontend/.DS_Store
+frontend/coverage/
+
+# Backend
+backend/node_modules/
+backend/.env*
+backend/.DS_Store
+backend/coverage/
+backend/uploads/
+backend/logs/
+
+# iOS
+ios-app/Pods/
+ios-app/DerivedData/
+ios-app/*.xcworkspace
+ios-app/*.xcuserstate
+ios-app/*.xcuserdata
+ios-app/*.xcodeproj/project.xcworkspace/xcuserdata/
+ios-app/*.xcodeproj/xcuserdata/
+ios-app/.env*
+ios-app/.DS_Store
+
+# System
+Thumbs.db
+*.swp
+
+# Sonstiges
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.pem
+*.p8
+*.key
+*.crt
+*.cert
+*.p12
+*.mobileprovision
+
+#P
+TODO.md

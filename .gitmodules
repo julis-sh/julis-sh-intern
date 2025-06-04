@@ -1,0 +1,9 @@
+[submodule "julis-sh-intern-ios"]
+	path = julis-sh-intern-ios
+	url = https://github.com/julis-sh/julis-sh-intern-ios
+[submodule "julis-sh-intern-backend"]
+	path = julis-sh-intern-backend
+	url = https://github.com/julis-sh/julis-sh-intern-backend
+[submodule "julis-sh-intern-frontend"]
+	path = julis-sh-intern-frontend
+	url = https://github.com/julis-sh/julis-sh-intern-frontend
