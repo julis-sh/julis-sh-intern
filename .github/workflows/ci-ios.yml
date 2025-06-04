@@ -1,0 +1,36 @@
+name: iOS CI
+
+on:
+  push:
+    paths:
+      - "ios/julis-sh-intern-ios/**"
+  pull_request:
+    paths:
+      - "ios/julis-sh-intern-ios/**"
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app
+      - name: Install dependencies (CocoaPods, falls benötigt)
+        run: |
+          cd ios/julis-sh-intern-ios
+          pod install || true
+      - name: Patch Info.plist mit Secrets (optional)
+        run: |
+          if [ ! -z "${{ secrets.API_URL_TEST }}" ]; then /usr/libexec/PlistBuddy -c "Set :API_URL_TEST ${{ secrets.API_URL_TEST }}" ios/julis-sh-intern-ios/julis-sh-intern-ios/Info.plist; fi
+          if [ ! -z "${{ secrets.MSAL_CLIENT_ID_TEST }}" ]; then /usr/libexec/PlistBuddy -c "Set :MSAL_CLIENT_ID_TEST ${{ secrets.MSAL_CLIENT_ID_TEST }}" ios/julis-sh-intern-ios/julis-sh-intern-ios/Info.plist; fi
+          if [ ! -z "${{ secrets.MSAL_TENANT_ID_TEST }}" ]; then /usr/libexec/PlistBuddy -c "Set :MSAL_TENANT_ID_TEST ${{ secrets.MSAL_TENANT_ID_TEST }}" ios/julis-sh-intern-ios/julis-sh-intern-ios/Info.plist; fi
+          if [ ! -z "${{ secrets.MSAL_REDIRECT_URI_TEST }}" ]; then /usr/libexec/PlistBuddy -c "Set :MSAL_REDIRECT_URI_TEST ${{ secrets.MSAL_REDIRECT_URI_TEST }}" ios/julis-sh-intern-ios/julis-sh-intern-ios/Info.plist; fi
+      - name: Build app
+        run: |
+          cd ios/julis-sh-intern-ios
+          xcodebuild -scheme julis-sh-intern-ios -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15' build
+      - name: Test
+        run: |
+          cd ios/julis-sh-intern-ios
+          xcodebuild test -scheme julis-sh-intern-ios -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15'
